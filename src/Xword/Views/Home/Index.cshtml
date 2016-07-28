@@ -1,0 +1,26 @@
+@{
+    Layout = "_Layout";
+    <h1>xord</h1>
+    <form id="xord-input">
+        <div class="row">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-10">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ett ord med _ för okända tecken." name="query" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" name="go">Go</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-1"></div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10">
+            <ul class=list-unstyled id="xord-output">
+            </ul>
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
+}

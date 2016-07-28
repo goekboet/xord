@@ -1,0 +1,13 @@
+{
+    "version": "0.1.0",
+    "command": "gulp",
+    "isShellCommand": true,
+    "args": [],
+    "tasks": [
+        {
+            "taskName": "serve_locally",
+            "isBuildCommand": true,
+            "showOutput": "always"
+        }
+    ]
+}
