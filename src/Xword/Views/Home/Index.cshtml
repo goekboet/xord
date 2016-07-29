@@ -1,14 +1,16 @@
 @{
     Layout = "_Layout";
     <h1>xord</h1>
+    <p>Hjälpmedel för korsordslösare. Ange de bokstäver du känner till för ett ord du försöker lösa. 
+        Låt en icke-bokstav representera de okända tecknen. ex. h_älp eller h älp.</p>
     <form id="xord-input">
         <div class="row">
             <div class="col-xs-1"></div>
             <div class="col-xs-10">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ett ord med _ för okända tecken." name="query" />
+                    <input type="text" class="form-control" placeholder="Ange ett ord" name="query" />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" name="go">Go</button>
+                        <button type="button" class="btn btn-default" name="go">Lös</button>
                     </span>
                 </div>
             </div>

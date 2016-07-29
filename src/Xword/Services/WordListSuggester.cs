@@ -10,16 +10,16 @@ namespace Xword.Services
     public class WordListSuggester : ISuggester
     {
         private readonly IWordList _words;
-        private readonly MatchingOptions _matching_options;
+        private readonly Regex _placeholders;
         public WordListSuggester(IWordList words, IOptions<MatchingOptions> matching_options)
         {
             _words = words;
-            _matching_options = matching_options.Value;
+            _placeholders = new Regex(matching_options.Value.wildcard_char, RegexOptions.IgnoreCase);
         }
 
         public Regex Patternize(string incomplete)
         {
-            incomplete = incomplete.Replace(_matching_options.wildcard_char, ".");
+            incomplete = _placeholders.Replace(incomplete, ".");
             var pattern = string.Format("^{0}$", incomplete);
 
             return new Regex(pattern, RegexOptions.IgnoreCase);

@@ -19,7 +19,7 @@ namespace Xwords.tests
             {
                 if (_underscore_option == null) {
                     _underscore_option = new Mock<IOptions<MatchingOptions>>();
-                    _underscore_option.Setup(o => o.Value).Returns(new MatchingOptions { wildcard_char = "_" });
+                    _underscore_option.Setup(o => o.Value).Returns(new MatchingOptions { wildcard_char = "[^a-zåöä-]" });
                 }
 
                 return _underscore_option.Object;
