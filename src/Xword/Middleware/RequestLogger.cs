@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -27,20 +25,12 @@ namespace Xword.Middleware
                 await _next.Invoke(context);
                 watch.Stop();
 
-                var log_template = @"
-                Client IP: {clientIP}
-                Request path: {requestPath}
-                Request content type: {requestContentType}
-                Request content length: {requestContentLength}
-                Start time: {startTime}
-                Duration: {duration}";
+                var log_template = @"{clientIP} {requestPath} {startTime} {duration}";
 
                 _logger.LogInformation(
                     log_template,
                     context.Connection.RemoteIpAddress.ToString(),
                     context.Request.Path,
-                    context.Request.ContentType,
-                    context.Request.ContentLength,
                     start_time,
                     watch.ElapsedMilliseconds);
             }

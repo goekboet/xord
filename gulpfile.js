@@ -22,7 +22,7 @@ var paths = {
 var shell = require('gulp-shell');
 
 gulp.task('serve_locally', shell.task([
-    'export ASPNETCORE_ENVIRONMENT=Development && export XORD_WORDLIST=/Users/erikgook/Ord/ord.txt && dotnet run -p ' + paths.proj + ' --server.urls=http://0.0.0.0:5000']));
+    'export ASPNETCORE_ENVIRONMENT=Development && export XORD_WORDLIST=/Users/erikgook/Ord/ord.txt && export XORD_LOG=/Users/erikgook/Desktop/xord-log-{Date}.txt && dotnet run -p ' + paths.proj + ' --server.urls=http://0.0.0.0:5000']));
 
 gulp.task("clean:js", function (cb) {
     rimraf(paths.concatJsDest, cb);

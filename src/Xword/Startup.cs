@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xword.Middleware;
 using Xword.Services;
+using Serilog;
+using Serilog.Sinks.RollingFile;
+using System;
 
 namespace Xword
 {
@@ -34,9 +37,19 @@ namespace Xword
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            //loggerFactory.AddDebug();
-            
+            loggerFactory
+                .WithFilter(new FilterLoggerSettings
+                {
+                    {"Microsoft", LogLevel.Warning },
+                    {"System", LogLevel.Warning},
+                    {"RequestLogger", LogLevel.Information},
+                    {"SuggestController", LogLevel.Warning}
+                })
+                .AddSerilog(
+                new LoggerConfiguration()
+                    .WriteTo.RollingFile(Environment.GetEnvironmentVariable("XORD_LOG"))
+                    .CreateLogger());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -46,7 +59,7 @@ namespace Xword
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            
+
             app.UseMiddleware<RequestLogger>();
             app.UseStaticFiles();
             app.UseMvc(routes =>
@@ -55,7 +68,7 @@ namespace Xword
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            
+
         }
     }
 }

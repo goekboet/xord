@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Xword.Controllers
 {
@@ -9,27 +11,26 @@ namespace Xword.Controllers
     public class SuggestController : Controller
     {
         private readonly ISuggester _suggester;
-        public SuggestController(ISuggester suggester)
+        private readonly ILogger<SuggestController> _logger;
+        public SuggestController(ISuggester suggester, ILogger<SuggestController> logger)
         {
             _suggester = suggester;
+            _logger = logger;
         }
         // GET api/values/5
         [HttpGet("{incomplete}")]
         public async Task<IActionResult> Get(string incomplete)
         {
-            var properly_formed = new Regex("^[a-z|å|ä|ö|_]+$", RegexOptions.IgnoreCase);
             IEnumerable<string> result;
-
-            if (!properly_formed.IsMatch(incomplete))
-                return BadRequest();
 
             try
             {
                 result = await _suggester.Suggest(
                     _suggester.Patternize(incomplete));
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
+                _logger.LogError(new EventId(), e, e.Message);
                 return StatusCode(500);
             }
 
