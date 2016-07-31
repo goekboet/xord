@@ -4,7 +4,7 @@ var xord = {
 
 function query(e) {
     e.preventDefault();
-    $.get(xord.service + xord.input.val(), function(suggestions) 
+    $.get(xord.service + encodeURI(xord.input.val()), function(suggestions) 
     {
         xord.output.empty();
         $.each(suggestions, function(i, suggestion) 
@@ -22,7 +22,6 @@ $(function() {
     form.submit(query);
     $('#xord-input button[name=go]')
         .click(function () {
-            console.log("hallå");
             form.submit()
         });
 })
