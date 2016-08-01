@@ -16,7 +16,7 @@ namespace Xword
             var host = new WebHostBuilder()
                 .UseConfiguration(config)
                 .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory() + "/src/Xword")
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
